@@ -1,0 +1,16 @@
+--------------------------ROLES-----------------------------
+SA: Super Admin: Người cấu hình hệ thống, code
+AD: Administrator: Người quản lý hệ thống, thiết lập các dữ liệu (Khoa, Lĩnh vực)
+GV: Giảng viên
+SV: Sinh viên
+
+
+---------------------------PERMISSIONS-------------------------------
+
+SM_roles_permissions			Phân quyền - chức vụ
+users_manage					Quản lý người dùng
+users_act						Thao tác với người dùng
+cohorts_programs				Quản lý niên khóa - chương trình đào tạo
+term_manage						Thiết lập đợt đăng ký
+topics_teacher					Đề tài khóa luận của giáo viên
+topics_student					Đề tài khóa luận của sinh viên
