@@ -26,5 +26,9 @@ Route::group(['prefix' => 'teacher/topics', 'middleware' => ['auth']], function 
 	Route::post('/accept_student_register', ['as' => 'teacher.topics.accept_student_register', 'uses' => 'Teacher\TopicsController@accept_student_register']);
 
 	Route::post('/denies_student_register', ['as' => 'teacher.topics.denies_student_register', 'uses' => 'Teacher\TopicsController@denies_student_register']);
+
+	Route::post('/show-students-learn', ['as' => 'teacher.topics.show-students-learn', 'uses' => 'Teacher\TopicsController@show_students_learn']);
+
+	Route::post('/denies_student_learn', ['as' => 'teacher.topics.denies_student_learn', 'uses' => 'Teacher\TopicsController@denies_student_learn']);	
 	
 });

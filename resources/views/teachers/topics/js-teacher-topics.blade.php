@@ -110,4 +110,28 @@
             });
         });
 
+        $("[id^='btn-topic-students-learn']").each(function(){
+            $(this).click(function(){
+                var id = $(this).attr('index');
+                $.ajax({
+                    url      : 'topics/show-students-learn',
+                    type     : "POST",
+                    data     : {
+                                topic_id: id
+                               },
+                    success  : function(data){
+                            if(data.code == undefined){
+                                $('#students-learn-topic-panel').html(data);
+                            }else{
+                                alert(data.message,'','error');
+                            }
+                        },
+                    error:function(){ 
+                        alert('Có lỗi xảy ra, vui lòng thực hiện lại','','error');
+                    }
+                });
+                
+            });
+        });
+
 </script>

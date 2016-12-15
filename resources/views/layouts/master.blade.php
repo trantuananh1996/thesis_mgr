@@ -34,7 +34,7 @@
     <header class="header fixed-top clearfix">
         <!--logo start-->
         <div class="brand">
-            <a href="#" class="logo" style="  margin: auto; width: 50%;padding-left: 60px;padding-top: 7px">
+            <a href="{{asset('/')}}" class="logo" style="  margin: auto; width: 50%;padding-left: 60px;padding-top: 7px">
                 <img src="{{asset('images/logo.png')}}" alt="" width="75px" height="60px">
             </a>
             <div class="sidebar-toggle-box">

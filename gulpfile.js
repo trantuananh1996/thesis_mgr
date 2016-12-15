@@ -51,6 +51,15 @@ elixir(function (mix) {
         'js/advanced-datatable/js/jquery.dataTables.js',
         'js/data-tables/DT_bootstrap.js'
     ],'public/js/dataTable.js');
+
+    //Tree
+    mix.scripts([
+        'js/fuelux/js/tree.min.js'
+    ],'public/js/tree.js');
+    mix.styles([
+        'js/fuelux/css/tree-style.css'
+    ],'public/css/tree.css');
+
     mix.copy('resources/assets/font-awesome/fonts', 'public/fonts');
     mix.copy('resources/assets/bs3/fonts', 'public/css/fonts');
     mix.copy('resources/assets/bucket-ico-fonts', 'public/fonts');

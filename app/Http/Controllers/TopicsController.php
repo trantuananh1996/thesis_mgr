@@ -15,6 +15,9 @@ class TopicsController extends Controller
     }
 
     public function index(){
+        if(Gate::allows('topics_manage'))
+            return redirect('manager/topics');
+
     	if(Gate::allows('topics_teacher'))
     		return redirect('teacher/topics');
 
@@ -31,6 +34,9 @@ class TopicsController extends Controller
     	if(is_null($topic))
     		return redirect(redirect()->getUrlGenerator()->previous())
     			->withErrors('Không tìm thấy đề tài khóa luận này');
+
+        if(Gate::allows('topics_manage'))
+            return redirect('manager/topics/'.$topic->code.'/info');
 
     	if(Gate::allows('topics_teacher')){
             if(Auth::user()->id == $topic->created_user_id)

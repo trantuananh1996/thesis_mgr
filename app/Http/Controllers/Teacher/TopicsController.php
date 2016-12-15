@@ -232,7 +232,19 @@ class TopicsController extends Controller
 
         return view('teachers.topics.students-register',compact('topic'));
     }
+    public function show_students_accepted(Request $request){
+        $data = $request->all();
 
+        if(is_null($data['topic_id']))
+            return response_error(32,'Thiếu dữ liệu gửi lên',$data);
+
+        $topic = Topic::whereId($data['topic_id'])->with('author','field','field.teachers','students_register','students_register.student','tutors')->first();
+
+        if(is_null($topic))
+            return response_error(404,'Không tìm thấy đề tài này',$data);
+
+        return view('teachers.topics.students-accepted',compact('topic'));
+    }
     public function accept_student_register(Request $request){
         $data = $request->all();
 
@@ -244,7 +256,7 @@ class TopicsController extends Controller
         if(is_null($topic))
             return response_error(404,'Không tìm thấy đề tài này',$data);
 
-        $student_topic = StudentTopic::whereId($data['student_topic_id'])->first();
+        $student_topic = StudentTopic::whereId($data['student_topic_id'])->with('student')->first();
 
         if(is_null($student_topic))
             return response_error(404,'Không tìm thấy đăng ký này',$data);            
@@ -256,6 +268,7 @@ class TopicsController extends Controller
         $student_topic->status = 2;
         $student_topic->save();
 
+        $topic->send_email_register($student_topic->student, $topic->author,1);
         return response_success('Cho phép thành công',$data);            
     }
 
@@ -270,7 +283,7 @@ class TopicsController extends Controller
         if(is_null($topic))
             return response_error(404,'Không tìm thấy đề tài này',$data);
 
-        $student_topic = StudentTopic::whereId($data['student_topic_id'])->first();
+        $student_topic = StudentTopic::whereId($data['student_topic_id'])->with('student')->first();
 
         if(is_null($student_topic))
             return response_error(404,'Không tìm thấy đăng ký này',$data);            
@@ -279,8 +292,25 @@ class TopicsController extends Controller
         $student_topic->save();
         $student_topic->change_status();
 
+        $topic->send_email_register($student_topic->student, $topic->author,0);
         return response_success('Từ chối thành công',$data);            
     }
+
+    public function show_students_learn(Request $request){
+        $data = $request->all();
+
+        if(is_null($data['topic_id']))
+            return response_error(32,'Thiếu dữ liệu gửi lên',$data);
+
+        $topic = Topic::whereId($data['topic_id'])->with('author','field','field.teachers','students_learn','students_learn.student','tutors')->first();
+
+        if(is_null($topic))
+            return response_error(404,'Không tìm thấy đề tài này',$data);
+
+        return view('teachers.topics.students-learn',compact('topic'));
+    }
+
+    
 
     public function make_code($field_id){
         $max_id = Topic::whereRaw('id = (select max(`id`) from topics)')->first();

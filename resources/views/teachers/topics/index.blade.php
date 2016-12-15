@@ -28,6 +28,14 @@
     </div>
     <!-- END MODAL -->
 
+    <!-- MODAL ALLOW OR DENIES STUDENT REGISTER TO TOPIC -->
+    <div class="modal fade" id="students-learn-topic-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" align="left">
+        <div class="modal-content" id="students-learn-topic-panel" style="width:40%; margin:auto; margin-top:20px;">
+
+        </div>
+    </div>
+    <!-- END MODAL -->
+
     <div class="row" align="right">
         <a href="{{asset('teacher/topics/create')}}" class="btn btn-round btn-sm btn-primary">
             THÊM KHÓA LUẬN <i class="fa fa-plus"></i>

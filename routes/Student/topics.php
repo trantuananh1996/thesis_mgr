@@ -7,4 +7,6 @@ Route::group(['prefix' => 'student/topics', 'middleware' => ['auth']], function 
 
 	Route::post('/register', ['as' => 'student.topics.register', 'uses' => 'Student\TopicsController@register']);	
 
+	Route::post('/cancel-register', ['as' => 'student.topics.cancel-register', 'uses' => 'Student\TopicsController@cancel_register']);
+
 });

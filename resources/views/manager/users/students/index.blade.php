@@ -120,12 +120,12 @@
                             <p>Điện thoại</p>
                         </th>
                         <th>
-                            <input type="text" class="form-control" size="5" placeholder="Tìm khoa"/>
-                            <p>Khoa</p>
+                            <input type="text" class="form-control" size="5" placeholder="Tìm khóa"/>
+                            <p>Khóa học</p>
                         </th>
                         <th>
-                            <input type="text" class="form-control" size="5" placeholder="Tìm khóa học"/>
-                            <p>Khóa học</p>
+                            <input type="text" class="form-control" size="5" placeholder="Tìm chương trình"/>
+                            <p>Chương trình đào tạo</p>
                         </th>
                         @can('users_act')
                             <th>Tùy chọn</th>

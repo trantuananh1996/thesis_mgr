@@ -1,7 +1,11 @@
+@if(isset($mark))
+<aside class="profile-nav alt" id="topic-panel-mark-student{{$topic->id}}" style="margin-top: 15px">
+@else
 <aside class="profile-nav alt" id="topic-panel{{$topic->id}}" style="margin-top: 15px">
+@endif
     <section class="panel">
         @if(isset($mark))
-        <div class="twt-feed blue-bg">
+        <div class="twt-feed blue-bg" id="mark-student">
             <div class="corner-ribon black-ribon">
                 <i class="fa fa-tag"></i>
             </div>
@@ -32,10 +36,16 @@
         <div class="weather-category twt-category">
             <ul>
                 <li class="active">
+                    @if($topic->created_user_id == Auth::user()->id)
+                    <a data-toggle="modal" data-target="#students-learn-topic-modal" href="#" style="all:unset" id="btn-topic-students-learn{{$topic->id}}" index="{{$topic->id}}">
+                    @endif
                     <h5>
                         <b class="text text-danger">{{count($topic->students_learn)}}</b> SV
                     </h5>
                     THỰC HIỆN
+                    @if($topic->created_user_id == Auth::user()->id)
+                    </a>
+                    @endif
                 </li>
                 <li>
                     @if($topic->created_user_id == Auth::user()->id)
@@ -95,7 +105,11 @@
                     @if($topic->id == $student->topic->current_topic_id)
                         <p class="text text-info"><b>ĐÃ NHẬN ĐỀ TÀI</b></p> 
                     @elseif($topic->id == $student->topic->register_topic_id)
-                        <p class="text text-primary">CHỜ PHÊ DUYỆT ...</p> 
+                        <p class="text text-primary">CHỜ PHÊ DUYỆT ...
+                        <button class="btn btn-danger pull-right" id="btn-cancel-register{{$topic->id}}" title="Hủy đăng ký" index="{{$topic->id}}" >
+                            <i class="fa fa-times"></i>
+                        </button>
+                        </p> 
                     @elseif($topic->is_locked == 1)
                         <button class="btn btn-default">
                             KHÓA ĐĂNG KÝ <i class="fa fa-lock"></i>

@@ -14,3 +14,5 @@ cohorts_programs				Quản lý niên khóa - chương trình đào tạo
 term_manage						Thiết lập đợt đăng ký
 topics_teacher					Đề tài khóa luận của giáo viên
 topics_student					Đề tài khóa luận của sinh viên
+topic_denies					Đình chỉ làm khóa luận
+topics_manage					Quản lý khóa luận

@@ -12,6 +12,8 @@
     </a>
 </li>
 @endcan
+
+@can('general_manage')
 <li class="sub-menu">
     <a>
         <i class="fa fa-cog"></i>
@@ -21,7 +23,7 @@
         @can('term_manage')
         <li><a href="{{route('terms')}}"><i class="fa fa-flag"></i>Các đợt đăng ký</a></li>
         @endcan
-        
+
     </ul>
 </li>
 
@@ -52,6 +54,8 @@
         @endcan
     </ul>
 </li>
+@endcan
+
 @can('users_manage')
     <li class="sub-menu">
         <a>

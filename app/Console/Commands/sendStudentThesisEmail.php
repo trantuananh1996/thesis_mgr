@@ -100,7 +100,7 @@ class sendStudentThesisEmail extends Command
         Mail::send('emails.announce-term', $data, function ($message) use ($student_email)
         {
             $message->from(Config::get('mail.username'));
-            $message->to($student_email)->subject('[Thesis]- Thông báo mở đợt đăng ký đề tài!');
+            $message->to($student_email)->subject('[Quản lý Khóa Luận Đại học Công Nghệ - ĐHQGHN]- Thông báo mở đợt đăng ký đề tài!');
         });
 
         $email->status = 1;

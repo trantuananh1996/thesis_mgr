@@ -34,6 +34,7 @@ require(__DIR__ . '/Manager/unit.php');
 require(__DIR__ . '/Manager/field.php');
 require(__DIR__ . '/Manager/cohorts-programs.php');
 require(__DIR__ . '/Manager/terms.php');
+require(__DIR__ . '/Manager/topics.php');
 
 require(__DIR__ . '/Teacher/topics.php');
 require(__DIR__ . '/General/topics.php');

@@ -243,8 +243,9 @@ class TeachersController extends Controller
             return Redirect::route('teachers');
         }
         //Get results
-        $results = Excel::load($file, function ($reader) {
-            $reader->formatDates(false);
+        $results = Excel::load($f4ile, function ($reader) {
+
+            $reader->formatDate1s(false);
         })->get();
 
         //Check number of rows to prevent default template
@@ -487,6 +488,7 @@ class TeachersController extends Controller
      */
     public function checkDate($date, $row)
     {
+        dd($date);
         $errors = '';
         if (is_null($date)) {
             return 'Thiếu ngày sinh tại dòng ' . $row;
@@ -496,7 +498,7 @@ class TeachersController extends Controller
         } catch (InvalidArgumentException $x) {
             $errors = 'Định dạng ngày sinh sai giá trị tại dòng ' . $row;
         }
-        
+
         return $errors;
     }
 }

@@ -50,9 +50,14 @@ class TopicsController extends Controller
         $student->topic = $student->topic()
             ->with('current_topic','current_topic.author','current_topic.field','current_topic.students_learn','current_topic.students_register','current_topic.tutors')
             ->with('register_topic','register_topic.author','register_topic.field','register_topic.students_learn','register_topic.students_register','register_topic.tutors')->first();
-            
+
         if(is_null($student->topic))
             $student->topic = StudentTopic::create_empty($student->id);
+        $student_topic = $student->topic;
+
+        $topics = $topics->filter(function($topic,$key) use ($student_topic){
+            return $topic->id != $student_topic->current_topic_id && $topic->id != $student_topic->register_topic_id;
+        });
 
     	return view('students.topics.index',compact('topics','unit_name','student'));
     }
@@ -101,6 +106,38 @@ class TopicsController extends Controller
         $student->topic->change_status();
 
         return response_success('Đăng ký đề tài thành công',$data);        
+    }
+
+    public function cancel_register(Request $request){
+        $data = $request->all();
+
+        if(Gate::denies('topics_student'))
+            return response_error(403,'Bạn không có quyền thực hiện thao tác này',$data);
+
+        if(is_null($data['topic_id']))
+            return response_error(32,'Thiếu dữ liệu gửi lên',$data);
+
+        $topic = Topic::whereId($data['topic_id'])->with('author','field','students_learn','students_register','tutors')->first();
+
+        if(is_null($topic))
+            return response_error(404,'Không tìm thấy đề tài này',$data);
+
+        $student = Auth::user();
+        $student->topic = $student->topic()->first();
+
+        if(is_null($student->topic))
+            return response_error(404,'Không tìm thấy đăng ký của sinh viên',$data);
+
+        $student->topic->register_topic_id = 0;
+        $student->topic->save();
+        $student->topic->change_status();
+
+        $topic = Topic::whereId($data['topic_id'])->with('author','field','students_learn','students_register','tutors')->first();
+
+        if(isset($data['mark']) && $data['mark'] == '1')
+            return view('widget.topics.topic',['topic'=>$topic,'student'=>$student,'mark'=>1]);
+
+        return view('widget.topics.topic',['topic'=>$topic,'student'=>$student]);
     }
 
 }

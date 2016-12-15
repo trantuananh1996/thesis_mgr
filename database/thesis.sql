@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2016-12-14 17:50:26
+Date: 2016-12-15 17:50:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -223,7 +223,7 @@ CREATE TABLE `permissions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of permissions
@@ -235,6 +235,9 @@ INSERT INTO `permissions` VALUES ('5', 'cohorts_programs', 'Quản lý khóa h�
 INSERT INTO `permissions` VALUES ('6', 'term_manage', 'Thiết lập đợt đăng ký', '', '1', '1', '2016-12-12 07:56:05', '2016-12-12 07:56:05');
 INSERT INTO `permissions` VALUES ('7', 'topics_teacher', 'Đề tài khóa luận của giáo viên', '', '1', '1', '2016-12-13 08:30:25', '2016-12-13 08:30:25');
 INSERT INTO `permissions` VALUES ('8', 'topics_student', 'Đề tài khóa luận của sinh viên', '', '1', '1', '2016-12-14 04:54:35', '2016-12-14 04:54:48');
+INSERT INTO `permissions` VALUES ('9', 'topic_denies', 'Đình chỉ làm khóa luận', '', '1', '1', '2016-12-15 07:21:38', '2016-12-15 07:21:38');
+INSERT INTO `permissions` VALUES ('10', 'topics_manage', 'Quản lý khóa luận', '', '1', '1', '2016-12-15 07:24:16', '2016-12-15 07:51:07');
+INSERT INTO `permissions` VALUES ('11', 'general_manage', 'Quản lý chung', '', '1', '1', '2016-12-15 10:47:40', '2016-12-15 10:47:40');
 
 -- ----------------------------
 -- Table structure for `role_permission`
@@ -249,7 +252,7 @@ CREATE TABLE `role_permission` (
   PRIMARY KEY (`id`),
   KEY `role_permission_role_id_index` (`role_id`),
   KEY `role_permission_permission_id_index` (`permission_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of role_permission
@@ -265,6 +268,12 @@ INSERT INTO `role_permission` VALUES ('14', '5', '6', '2016-12-12 07:56:16', '20
 INSERT INTO `role_permission` VALUES ('15', '1', '6', '2016-12-12 07:56:20', '2016-12-12 07:56:20');
 INSERT INTO `role_permission` VALUES ('16', '3', '7', '2016-12-13 08:30:33', '2016-12-13 08:30:33');
 INSERT INTO `role_permission` VALUES ('17', '4', '8', '2016-12-14 04:55:07', '2016-12-14 04:55:07');
+INSERT INTO `role_permission` VALUES ('20', '1', '9', '2016-12-15 07:22:57', '2016-12-15 07:22:57');
+INSERT INTO `role_permission` VALUES ('21', '5', '9', '2016-12-15 07:22:57', '2016-12-15 07:22:57');
+INSERT INTO `role_permission` VALUES ('22', '5', '10', '2016-12-15 07:51:16', '2016-12-15 07:51:16');
+INSERT INTO `role_permission` VALUES ('23', '1', '10', '2016-12-15 07:51:31', '2016-12-15 07:51:31');
+INSERT INTO `role_permission` VALUES ('24', '1', '11', '2016-12-15 10:47:46', '2016-12-15 10:47:46');
+INSERT INTO `role_permission` VALUES ('25', '5', '11', '2016-12-15 10:47:52', '2016-12-15 10:47:52');
 
 -- ----------------------------
 -- Table structure for `role_user`
@@ -374,12 +383,13 @@ CREATE TABLE `student_topic` (
   KEY `student_topic_current_topic_id_index` (`current_topic_id`),
   KEY `student_topic_register_topic_id_index` (`register_topic_id`),
   KEY `student_topic_teacher_id_index` (`teacher_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of student_topic
 -- ----------------------------
-INSERT INTO `student_topic` VALUES ('1', '10', '0', '1', '1', '1', '0', '0', '0', '0', '2016-12-14 08:50:58', '2016-12-14 09:54:00');
+INSERT INTO `student_topic` VALUES ('1', '10', '1', '0', '3', '1', '0', '19', '1', '0', '2016-12-14 08:50:58', '2016-12-15 10:36:03');
+INSERT INTO `student_topic` VALUES ('2', '11', '0', '2', '1', '1', '0', '0', '0', '0', '2016-12-15 07:31:15', '2016-12-15 07:32:14');
 
 -- ----------------------------
 -- Table structure for `teacher_field`
@@ -439,6 +449,9 @@ INSERT INTO `teacher_topic` VALUES ('20', '2', null, null);
 INSERT INTO `teacher_topic` VALUES ('20', '1', null, null);
 INSERT INTO `teacher_topic` VALUES ('20', '3', '2016-12-14 03:45:47', '2016-12-14 03:45:47');
 INSERT INTO `teacher_topic` VALUES ('19', '3', null, null);
+INSERT INTO `teacher_topic` VALUES ('20', '4', '2016-12-15 09:05:00', '2016-12-15 09:05:00');
+INSERT INTO `teacher_topic` VALUES ('20', '5', '2016-12-15 09:10:08', '2016-12-15 09:10:08');
+INSERT INTO `teacher_topic` VALUES ('20', '6', '2016-12-15 09:11:53', '2016-12-15 09:11:53');
 
 -- ----------------------------
 -- Table structure for `teacher_unit`
@@ -498,14 +511,13 @@ CREATE TABLE `topics` (
   `is_locked` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0: cho phép đăng ký, 1: Khóa đăng ký',
   PRIMARY KEY (`id`),
   KEY `topics_field_id_index` (`field_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of topics
 -- ----------------------------
-INSERT INTO `topics` VALUES ('1', 'AI_001', 'Ứng dụng trí tuệ nhân tạo trong Cờ toán Việt Nam', '1', '<p>Ứng dụng trí tuệ nhân tạo trong Cờ toán Việt Nam 2017<br></p>', '19', '19', '2016-12-14 03:40:34', '2016-12-14 09:05:55', '0');
-INSERT INTO `topics` VALUES ('2', 'MMT_002', 'Giám sát GPS bằng 3G', '2', '<p>Giám sát GPS bằng 3G 2017<br></p>', '19', '19', '2016-12-14 03:41:35', '2016-12-14 03:41:35', '0');
-INSERT INTO `topics` VALUES ('3', 'BIGDATA_003', 'Big Data trong học máy', '3', '<p>Big Data trong học máy 2017<br></p>', '20', '20', '2016-12-14 03:45:47', '2016-12-14 03:45:47', '0');
+INSERT INTO `topics` VALUES ('1', 'AI_001', 'Ứng dụng trí tuệ nhân tạo trong Cờ toán Việt Nam', '1', '<p>Ứng dụng trí tuệ nhân tạo trong Cờ toán Việt Nam 2017<br></p>', '19', '19', '2016-12-14 03:40:34', '2016-12-15 08:52:40', '0');
+INSERT INTO `topics` VALUES ('2', 'MMT_002', 'Giám sát GPS bằng 3G', '2', '<p>Giám sát GPS bằng 3G 2017<br></p>', '19', '19', '2016-12-14 03:41:35', '2016-12-15 08:52:37', '0');
 
 -- ----------------------------
 -- Table structure for `units`
@@ -580,14 +592,14 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'Trị', 'Quản', 'Siêu', '1980-01-01', '01667313134', '', 'thedc@omt.vn', '$2y$10$eE0yCJVBarT8OXK3rw6q1urT1TPzF786c17wvp1GVRTuv7fVh04kO', null, '1', 'waUtIegf2nJch2Lobgt1YAWo9Fz7JLwAMsdK29cywolVtWUmLzd6IlaIz7qp', '2016-12-06 07:23:47', '2016-12-14 08:55:02', 'admin', 'avatar/admin-1481302368.jpg', '0');
-INSERT INTO `users` VALUES ('10', '1', '', 'Student', '1980-01-01', '', '', 'student001@gmail.com', '$2y$10$N4hc62/UZrIdxTg31QMdCO5KyZN09kBPHYurv5zBjBv/aDCQXg0bG', null, '1', 'zNhJ4MUj14ivHogeggBTpeoPE4neehBst6IFfPl1HRtEP9vSwh8AI5fp8Cum', '2016-12-11 07:43:43', '2016-12-13 02:47:38', 'student001', 'avatar/NOIMAGE.jpg', '0');
-INSERT INTO `users` VALUES ('11', '2', '', 'Student', '1980-01-01', '', '', 'student002@gmail.com', '$2y$10$AyeHdZUUMNreEA7E.hGHz.MBGjb81j0gdVpGwSTd4aCTPCM0/FvxC', null, '1', null, '2016-12-11 07:44:01', '2016-12-11 07:44:01', 'student002', 'avatar/NOIMAGE.jpg', '0');
+INSERT INTO `users` VALUES ('1', 'Trị', 'Quản', 'Siêu', '1980-01-01', '01667313134', '', 'thedc@omt.vn', '$2y$10$eE0yCJVBarT8OXK3rw6q1urT1TPzF786c17wvp1GVRTuv7fVh04kO', null, '1', 'PU2eBivURghUxfO47zAxFRdGt5jXQWRgGRjngKaBy6ROEPT4Nqct6Yne99pT', '2016-12-06 07:23:47', '2016-12-15 07:30:41', 'admin', 'avatar/admin-1481302368.jpg', '0');
+INSERT INTO `users` VALUES ('10', '1', '', 'Student', '1980-01-01', '', '', 'tke.constructor@gmail.com', '$2y$10$N4hc62/UZrIdxTg31QMdCO5KyZN09kBPHYurv5zBjBv/aDCQXg0bG', null, '1', 'BoTRiAYYSJgYd2WFByy3wYqglhRRF15W55NZfyo7WX7bD8dp7oCUYdOvWynR', '2016-12-11 07:43:43', '2016-12-15 10:34:26', 'student001', 'avatar/NOIMAGE.jpg', '0');
+INSERT INTO `users` VALUES ('11', '2', '', 'Student', '1980-01-01', '', '', 'student002@gmail.com', '$2y$10$AyeHdZUUMNreEA7E.hGHz.MBGjb81j0gdVpGwSTd4aCTPCM0/FvxC', null, '1', 'WhKKNCbvcSq0sR5YNk7vk1RrDz3DAj3kDWC58rpQNijkFcvsvOYGLb6kSCiv', '2016-12-11 07:44:01', '2016-12-15 08:53:00', 'student002', 'avatar/NOIMAGE.jpg', '0');
 INSERT INTO `users` VALUES ('12', '3', '', 'Student', '1980-01-01', '', '', 'student003@gmail.com', '$2y$10$pSHmacFAih/bW6mIS2F8NumUelNVmoqEa6bY.ikLflFw4p5ZA5ZrS', null, '1', null, '2016-12-11 07:44:17', '2016-12-11 09:09:02', 'student003', 'avatar/NOIMAGE.jpg', '0');
 INSERT INTO `users` VALUES ('13', '4', '', 'Student', '1980-01-01', '', '', 'student004@gmail.com', '$2y$10$8ZpFQgiDfrFAKB.I4Q5/E.n1gHjOJJ2TCPWR8A1tjsQVYY7oUPikG', null, '1', null, '2016-12-11 07:44:38', '2016-12-11 07:44:38', 'student004', 'avatar/NOIMAGE.jpg', '0');
 INSERT INTO `users` VALUES ('14', '5', '', 'Student', '1980-01-01', '', '', 'student005@gmail.com', '$2y$10$HklvyvzFieGXDfKq65ftwu8hiA7OMVBqVckvA8Z5JMYct2xUqSg.i', null, '1', null, '2016-12-11 07:44:52', '2016-12-11 07:44:52', 'student005', 'avatar/NOIMAGE.jpg', '0');
 INSERT INTO `users` VALUES ('15', '6', '', 'Student', '1980-01-01', '', '', 'student006@gmail.com', '$2y$10$MPS66JoPxsC3ZGsNjFuSr.cDxLNKlNDRX.iFA8p.96XhABzf.BMbq', null, '1', null, '2016-12-11 07:45:05', '2016-12-11 07:45:05', 'student006', 'avatar/NOIMAGE.jpg', '0');
 INSERT INTO `users` VALUES ('17', '7', '', 'Student', '1980-01-01', '', '', 'student007@gmail.com', '$2y$10$LTFNDILDKHh9jVpNSGsk0O9/z8gsNUswHws3ttdH0d0Ka3NsgK64i', null, '1', null, '2016-12-12 10:58:37', '2016-12-12 10:58:37', 'student007', 'avatar/NOIMAGE.jpg', '0');
 INSERT INTO `users` VALUES ('18', '8', '', 'Student', '1980-01-01', '', '', 'student008@gmail.com', '$2y$10$ZvVNbpOkagYp.YsVvo27eOzjL7qTPqgMezlccQN.1W7iU21Hv95BC', null, '1', null, '2016-12-12 10:59:27', '2016-12-12 10:59:27', 'student008', 'avatar/NOIMAGE.jpg', '0');
-INSERT INTO `users` VALUES ('19', '1', 'viên', 'Giảng', '1980-01-01', '', '', 'giangvien1@gmail.com', '$2y$10$GsKrDNoNYLJA4MqZRnnJLuRiTcUhT7CVB0wn6II4bN/YDOIWwuLt6', null, '1', 'q0X7m2sEH3NeLxklMVfPEHuUGizAyvUPgNWltVkggCOPDBrJJTmbLhpdmrUu', '2016-12-13 02:49:21', '2016-12-14 04:46:21', 'giangvien1', 'avatar/NOIMAGE.jpg', '0');
-INSERT INTO `users` VALUES ('20', '2', 'viên', 'Giảng', '1980-01-01', '', '', 'giangvien2@gmail.com', '$2y$10$A6duj0/0FNjqD0X2ejCr5ejbVpTV2epgnxe80d/TJRERcRuUTKk6q', null, '1', 'OLaWZDeCUj0SsEKk2tec28ryjCKM2VWKmoLcUNNf790JexSxHWYIAxiOnonb', '2016-12-13 02:49:36', '2016-12-14 03:47:08', 'giangvien2', 'avatar/NOIMAGE.jpg', '0');
+INSERT INTO `users` VALUES ('19', '1', 'viên', 'Giảng', '1980-01-01', '', '', 'giangvien1@gmail.com', '$2y$10$GsKrDNoNYLJA4MqZRnnJLuRiTcUhT7CVB0wn6II4bN/YDOIWwuLt6', null, '1', '7kFXXy5AzECtskiWLx5DNcpk2cMOxYRZUtgC9R5v9hU93aNwlOshT5PW5HD6', '2016-12-13 02:49:21', '2016-12-15 10:34:06', 'giangvien1', 'avatar/NOIMAGE.jpg', '0');
+INSERT INTO `users` VALUES ('20', '2', 'viên', 'Giảng', '1980-01-01', '', '', 'giangvien2@gmail.com', '$2y$10$A6duj0/0FNjqD0X2ejCr5ejbVpTV2epgnxe80d/TJRERcRuUTKk6q', null, '1', 'D7lNpM5mzpiTPyOWBkN51yVYdl158rpnLsAZrBpXuobPSJlAtz7wU0ZcM4Dt', '2016-12-13 02:49:36', '2016-12-15 09:50:34', 'giangvien2', 'avatar/NOIMAGE.jpg', '0');
